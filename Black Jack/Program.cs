@@ -85,9 +85,9 @@ namespace Black_Jack
                 Console.WriteLine($"Mamy do dyspozycji : {kasa} PLN");
                 
                 int stawione = 0;
-                bool validInput = false;
+                bool inputcik = false;
 
-                while (!validInput)
+                while (!inpucik)
                 {
                     Console.Write("Podaj kwotę do postawienia: ");
                     string input = Console.ReadLine();
@@ -104,7 +104,7 @@ namespace Black_Jack
                         }
                         else
                         {
-                            validInput = true;
+                            inpucik = true;
                         }
                     }
                     catch (FormatException)

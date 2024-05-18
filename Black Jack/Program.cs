@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Black_Jack
 {
@@ -17,7 +18,7 @@ namespace Black_Jack
 
     internal class Program
     {
-        public List<Karta> UstawReke(List<Karta> list)
+        public static List<Karta> UstawReke(List<Karta> list)
         {
             string[] kolory = { "\u2665\ufe0e", "\u2666", "\u2663", "\u2660" };
             Random r = new Random();
@@ -39,12 +40,16 @@ namespace Black_Jack
             return list;
         }
 
-        public bool Wynik(List<Karta> list)
+        public static bool Wynik(List<Karta> list)
         {
             Random r = new Random();
             int suma = 0;
             bool wygrana = false;
-            int krupier = r.Next(2, 22);
+            int krupier = 0;
+            for (int i = 0; i < 2; i++)
+            {
+                krupier += r.Next(1, 11);
+            }
             foreach (var element in list)
             {
                 suma += element.Wartosc;
@@ -66,7 +71,97 @@ namespace Black_Jack
 
         public static void Main(string[] args)
         {
-            
+            Console.WriteLine("Witaj w Black Jack'u!");
+            Console.WriteLine("Wcisnij coś by iść dalej!");
+            int kasa = 500;
+            Console.ReadKey();
+            Console.Clear();
+            List<Karta> karty = new List<Karta>();
+            UstawReke(karty);
+            bool gra = true;
+            do
+            {
+                Console.WriteLine("Więc trzeba coś postawić!");
+                Console.WriteLine($"Mamy do dyspozycji : {kasa} PLN");
+                
+                int stawione = 0;
+                bool validInput = false;
+
+                while (!validInput)
+                {
+                    Console.Write("Podaj kwotę do postawienia: ");
+                    string input = Console.ReadLine();
+                    try
+                    {
+                        stawione = int.Parse(input);
+                        if (stawione > kasa)
+                        {
+                            Console.WriteLine("Brak pieniędzy!");
+                        }
+                        else if (stawione <= 0)
+                        {
+                            Console.WriteLine("Kwota musi być większa niż 0!");
+                        }
+                        else
+                        {
+                            validInput = true;
+                        }
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Niepoprawny format danych. Proszę wprowadzić liczbę.");
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.WriteLine("Wow Gratulujemy wyniku tak potężnego, że int go nie obsługuje!");
+                    }
+                }
+
+                Console.WriteLine("Twoje karty : ");
+                foreach (var element in karty)
+                {
+                    Console.Write($"{element.Wartosc} {element.Kolor} ");
+                }
+
+                if (Wynik(karty))
+                {
+                    Console.WriteLine("Wygrałeś!");
+                    kasa += stawione;
+                }
+                else
+                {
+                    Console.WriteLine("Przegrałeś!");
+                    Thread.Sleep(1000);
+                    kasa -= stawione;
+                }
+
+                if (kasa != 0)
+                {
+                    bool podp = false;
+                    {
+                        Console.WriteLine("Gramy dalej? [Y/N]");
+                        string odp = Console.ReadLine();
+                        if (odp == "Y" || odp == "N")
+                        {
+                            podp = true;
+                            if (odp == "N")
+                            {
+                                gra = false;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Niepoprawny wybór. Proszę wprowadzić Y lub N.");
+                        }
+                    }
+                }
+                if (kasa <= 0)
+                {
+                    Console.WriteLine("Zbankrutowałeś koniec gry!");
+                    gra = false;
+                }
+                Console.Clear();
+            } while (gra);
         }
     }
 }

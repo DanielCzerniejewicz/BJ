@@ -1,0 +1,6 @@
+C:\Users\Daniel\Desktop\Szkola\Gry\Black Jack\Black Jack\bin\Debug\Black_Jack.exe
+C:\Users\Daniel\Desktop\Szkola\Gry\Black Jack\Black Jack\bin\Debug\Black_Jack.pdb
+C:\Users\Daniel\Desktop\Szkola\Gry\Black Jack\Black Jack\obj\Debug\Black Jack.csproj.AssemblyReference.cache
+C:\Users\Daniel\Desktop\Szkola\Gry\Black Jack\Black Jack\obj\Debug\Black Jack.csproj.CoreCompileInputs.cache
+C:\Users\Daniel\Desktop\Szkola\Gry\Black Jack\Black Jack\obj\Debug\Black_Jack.exe
+C:\Users\Daniel\Desktop\Szkola\Gry\Black Jack\Black Jack\obj\Debug\Black_Jack.pdb

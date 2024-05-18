@@ -5,51 +5,40 @@ namespace Black_Jack
 {
     class Karta
     {
-        public string Wartosc { get; set; }
+        public int Wartosc { get; set; }
         public string Kolor { get; set; }
 
-        public Karta()
-        {
-            Wartosc = "Nie Ustawiono!";
-            Kolor = "Nie Ustawiono!";
-        }
-
-        public Karta(string wartosc, string kolor)
+        public Karta(int wartosc, string kolor)
         {
             Wartosc = wartosc;
             Kolor = kolor;
         }
     }
+
     internal class Program
     {
         public List<Karta> UstawReke(List<Karta> list)
         {
-            string kolor = "";
-            int wartosc = 0;
+            string[] kolory = { "\u2665\ufe0e", "\u2666", "\u2663", "\u2660" };
             Random r = new Random();
+
             for (int i = 0; i < 2; i++)
             {
-                Karta karta = new Karta();
-                kolor = r.Next(1, 5).ToString();
-                if (kolor == "1")
+                int wartosc = r.Next(1, 14);
+                string kolor = kolory[r.Next(0, 4)];
+
+                if (wartosc > 10)
                 {
-                    
+                    wartosc = 10;
                 }
 
-                if (kolor == "2")
-                {
-                    
-                }
-
-                if (kolor == "3")
-                {
-                    
-                }
-                if(kolor == "4")
+                Karta karta = new Karta(wartosc, kolor);
+                list.Add(karta);
             }
-            
+
             return list;
         }
+
         public bool Wynik(List<Karta> list)
         {
             Random r = new Random();
@@ -58,29 +47,23 @@ namespace Black_Jack
             int krupier = r.Next(2, 22);
             foreach (var element in list)
             {
-                suma += int.Parse(element.Wartosc);
+                suma += element.Wartosc;
             }
             if (suma > 21)
             {
                 wygrana = false;
             }
-
-            if (suma == 21)
+            else if (suma == 21 || suma > krupier)
             {
                 wygrana = true;
             }
-
-            if (suma > krupier)
-            {
-                wygrana = true;
-            }
-
-            if (krupier > suma)
+            else if (krupier > suma)
             {
                 wygrana = false;
             }
             return wygrana;
         }
+
         public static void Main(string[] args)
         {
             
